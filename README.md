@@ -1,5 +1,5 @@
 #see app
-https://commercial-anguler.vercel.app/products
+https://commercial-anguler.vercel.app
 # Ecommerce
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
