@@ -1,0 +1,206 @@
+<div class="container-fluid py-5">
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      <h1 class="display-4 fw-bold mb-3">Contact Us</h1>
+      <p class="lead text-muted">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Contact Information -->
+    <div class="col-lg-4">
+      <div class="card shadow-sm h-100 border-0">
+        <div class="card-body p-4">
+          <h3 class="mb-4">
+            <i class="fas fa-info-circle text-primary me-2"></i>Get in Touch
+          </h3>
+          
+          <div class="contact-info-item mb-4">
+            <div class="d-flex align-items-start">
+              <div class="contact-icon me-3">
+                <i class="fas fa-map-marker-alt text-primary fa-lg"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">Address</h5>
+                <p class="text-muted mb-0">
+                  123 E-Commerce Street<br>
+                  Shopping District<br>
+                  City, State 12345
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-item mb-4">
+            <div class="d-flex align-items-start">
+              <div class="contact-icon me-3">
+                <i class="fas fa-phone text-primary fa-lg"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">Phone</h5>
+                <p class="text-muted mb-0">
+                  <a href="tel:+1234567890" class="text-decoration-none">+1 (234) 567-890</a><br>
+                  <a href="tel:+1234567891" class="text-decoration-none">+1 (234) 567-891</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-item mb-4">
+            <div class="d-flex align-items-start">
+              <div class="contact-icon me-3">
+                <i class="fas fa-envelope text-primary fa-lg"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">Email</h5>
+               
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="d-flex align-items-start">
+              <div class="contact-icon me-3">
+                <i class="fas fa-clock text-primary fa-lg"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">Business Hours</h5>
+                <p class="text-muted mb-0">
+                  Monday - Friday: 9:00 AM - 6:00 PM<br>
+                  Saturday: 10:00 AM - 4:00 PM<br>
+                  Sunday: Closed
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <div class="social-links">
+            <h5 class="mb-3">Follow Us</h5>
+            <div class="d-flex gap-3">
+              <a href="#" class="social-link">
+                <i class="fab fa-facebook-f fa-lg"></i>
+              </a>
+              <a href="#" class="social-link">
+                <i class="fab fa-twitter fa-lg"></i>
+              </a>
+              <a href="#" class="social-link">
+                <i class="fab fa-instagram fa-lg"></i>
+              </a>
+              <a href="#" class="social-link">
+                <i class="fab fa-linkedin-in fa-lg"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h3 class="mb-4">
+            <i class="fas fa-paper-plane text-primary me-2"></i>Send us a Message
+          </h3>
+
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="name" 
+                  formControlName="name"
+                  [class.is-invalid]="submitted && name?.invalid"
+                  placeholder="Enter your full name">
+                <div class="invalid-feedback" *ngIf="submitted && name?.errors?.['required']">
+                  Please provide your name.
+                </div>
+                <div class="invalid-feedback" *ngIf="submitted && name?.errors?.['minlength']">
+                  Name must be at least 2 characters long.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="email" 
+                  formControlName="email"
+                  [class.is-invalid]="submitted && email?.invalid"
+                  placeholder="Enter your email">
+                <div class="invalid-feedback" *ngIf="submitted && email?.errors?.['required']">
+                  Please provide an email address.
+                </div>
+                <div class="invalid-feedback" *ngIf="submitted && email?.errors?.['email']">
+                  Please provide a valid email address.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input 
+                  type="tel" 
+                  class="form-control" 
+                  id="phone" 
+                  formControlName="phone"
+                  [class.is-invalid]="submitted && phone?.invalid"
+                  placeholder="Enter your phone number">
+                <div class="invalid-feedback" *ngIf="submitted && phone?.errors?.['pattern']">
+                  Please provide a valid phone number.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="subject" class="form-label">Subject <span class="text-danger">*</span></label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="subject" 
+                  formControlName="subject"
+                  [class.is-invalid]="submitted && subject?.invalid"
+                  placeholder="What is this regarding?">
+                <div class="invalid-feedback" *ngIf="submitted && subject?.errors?.['required']">
+                  Please provide a subject.
+                </div>
+                <div class="invalid-feedback" *ngIf="submitted && subject?.errors?.['minlength']">
+                  Subject must be at least 3 characters long.
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                <textarea 
+                  class="form-control" 
+                  id="message" 
+                  formControlName="message"
+                  rows="6"
+                  [class.is-invalid]="submitted && message?.invalid"
+                  placeholder="Enter your message here..."></textarea>
+                <div class="invalid-feedback" *ngIf="submitted && message?.errors?.['required']">
+                  Please provide a message.
+                </div>
+                <div class="invalid-feedback" *ngIf="submitted && message?.errors?.['minlength']">
+                  Message must be at least 10 characters long.
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-lg px-5" [disabled]="contactForm.invalid && submitted">
+                  <i class="fas fa-paper-plane me-2"></i>Send Message
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-lg ms-2" (click)="resetForm()">
+                  <i class="fas fa-redo me-2"></i>Reset
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h2 class="fw-bold">
+        <i class="fas fa-shopping-cart me-2"></i>Shopping Cart
+      </h2>
+      <p class="text-muted" *ngIf="cartItems.length > 0">
+        You have {{cartItems.length}} item(s) in your cart
+      </p>
+    </div>
+  </div>
+
+  <!-- Empty Cart State -->
+  <div class="row" *ngIf="cartItems.length === 0">
+    <div class="col-12 text-center py-5">
+      <i class="fas fa-shopping-cart fa-4x text-muted mb-4"></i>
+      <h3 class="text-muted mb-3">Your cart is empty</h3>
+      <p class="text-muted mb-4">Looks like you haven't added anything to your cart yet.</p>
+      <a routerLink="/products" class="btn btn-primary btn-lg">
+        <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+      </a>
+    </div>
+  </div>
+
+  <!-- Cart Items -->
+  <div class="row" *ngIf="cartItems.length > 0">
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Cart Items</h5>
+          <button class="btn btn-sm btn-outline-danger" (click)="clearCart()">
+            <i class="fas fa-trash me-1"></i>Clear Cart
+          </button>
+        </div>
+        <div class="card-body p-0">
+          <div class="cart-item" *ngFor="let item of groupedItems; let i = index">
+            <div class="d-flex align-items-center p-3 border-bottom">
+              <div class="cart-item-image-wrapper me-3">
+                <img [src]="item.image" [alt]="item.title" class="cart-item-image">
+              </div>
+              <div class="flex-grow-1">
+                <h6 class="mb-1 fw-bold">{{item.title}}</h6>
+                <p class="text-muted small mb-2">{{item.description | slice:0:80}}...</p>
+                <div class="d-flex align-items-center">
+                  <span class="badge bg-primary me-2">{{item.category}}</span>
+                  <span class="text-warning small">
+                    <i class="fas fa-star" *ngFor="let star of getStars(item.rating?.rate)"></i>
+                    ({{item.rating?.rate}})
+                  </span>
+                </div>
+              </div>
+              <div class="cart-item-details text-end">
+                <div class="quantity-controls mb-2">
+                  <button class="btn btn-sm btn-outline-secondary" (click)="updateQuantity(item.id, -1)" [disabled]="item.quantity <= 1">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <span class="mx-3 fw-bold">{{item.quantity}}</span>
+                  <button class="btn btn-sm btn-outline-secondary" (click)="updateQuantity(item.id, 1)">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+                <div class="price-section mb-2">
+                  <div class="fw-bold text-primary fs-5">
+                    {{(item.price * item.quantity) | currency:'USD':'symbol':'1.2-2'}}
+                  </div>
+                  <small class="text-muted" *ngIf="item.quantity > 1">
+                    {{item.price | currency:'USD':'symbol':'1.2-2'}} each
+                  </small>
+                </div>
+                <button class="btn btn-sm btn-outline-danger" (click)="removeAllItems(item.id)">
+                  <i class="fas fa-trash me-1"></i>Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="col-lg-4 mt-4 mt-lg-0">
+      <div class="card shadow-sm sticky-top" style="top: 20px;">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-receipt me-2"></i>Order Summary
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="summary-item d-flex justify-content-between mb-3">
+            <span>Subtotal ({{cartItems.length}} items):</span>
+            <span class="fw-bold">{{subtotal | currency:'USD':'symbol':'1.2-2'}}</span>
+          </div>
+          <div class="summary-item d-flex justify-content-between mb-3">
+            <span>Tax ({{(taxRate * 100)}}%):</span>
+            <span class="fw-bold">{{tax | currency:'USD':'symbol':'1.2-2'}}</span>
+          </div>
+          <hr>
+          <div class="summary-item d-flex justify-content-between mb-4">
+            <span class="fs-5 fw-bold">Total:</span>
+            <span class="fs-4 fw-bold text-primary">{{total | currency:'USD':'symbol':'1.2-2'}}</span>
+          </div>
+          <button class="btn btn-primary btn-lg w-100 mb-3" (click)="checkout()">
+            <i class="fas fa-credit-card me-2"></i>Proceed to Checkout
+          </button>
+          <a routerLink="/products" class="btn btn-outline-secondary w-100">
+            <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
